@@ -1,0 +1,12 @@
+com/example/tink/dto/WordResponse.class
+com/example/tink/TranslationGameApp.class
+com/example/tink/dto/AnswerRequest.class
+com/example/tink/repository/TranslationRepository.class
+com/example/tink/controller/TranslationController.class
+com/example/tink/TranslationServiceApplication.class
+com/example/tink/TranslationGameAppLauncher.class
+com/example/tink/entity/TranslationEntity.class
+com/example/tink/service/TranslationService.class
+com/example/tink/controller/GameController.class
+com/example/tink/service/GameService.class
+com/example/tink/dto/TranslationRequest.class

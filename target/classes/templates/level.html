@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор перевода</title>
+</head>
+<body>
+<h1>Выберите правильный перевод для слова: <span th:text="${word}"></span></h1>
+
+<form method="post" th:action="@{/api/translate/check}">
+    <input type="hidden" name="correctWord" th:value="${correctWord}"/>
+
+    <div>
+        <label>
+            <input type="radio" name="selectedWord" th:value="${options[0]}" required/>
+            <span th:text="${options[0]}"></span>
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="radio" name="selectedWord" th:value="${options[1]}" required/>
+            <span th:text="${options[1]}"></span>
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="radio" name="selectedWord" th:value="${options[2]}" required/>
+            <span th:text="${options[2]}"></span>
+        </label>
+    </div>
+
+    <button type="submit">Проверить</button>
+</form>
+</body>
+</html>
