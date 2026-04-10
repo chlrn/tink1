@@ -24,24 +24,19 @@ public class TranslationService {
     private final String apiKey = "YOUR_APIKEY";
     private final String folderId = "YOUR_FOLDERID";
 
-    // Мапа для хранения слов, которые будем использовать в игре
     private final Map<String, String> words = new ConcurrentHashMap<>();
     private final Random random = new Random();
     private final TranslationRepository translationRepository;
 
-    // Конструктор для инжекции зависимостей
     @Autowired
     public TranslationService(RestTemplateBuilder restTemplateBuilder, TranslationRepository translationRepository) {
         this.restTemplate = restTemplateBuilder.build();
         this.translationRepository = translationRepository;
 
-        // Инициализация слов (пример для разных уровней и языков)
         initializeWords();
     }
 
-    // Метод для инициализации слов
     private void initializeWords() {
-        // Пример слов для английского языка
         words.put("hello_en_A1", "hello");
         words.put("goodbye_en_A1", "goodbye");
         words.put("book_en_A1", "book");
@@ -235,128 +230,122 @@ public class TranslationService {
         words.put("interdisziplinär_de_C2", "interdisziplinär");
         words.put("methodologie_de_C2", "methodologie");
 
-        // Пример слов для французского языка
-        // Уровень A1
-        words.put("bonjour_fr_A1", "bonjour");  // привет
-        words.put("au revoir_fr_A1", "au revoir");  // до свидания
-        words.put("chat_fr_A1", "chat");  // кошка
-        words.put("chien_fr_A1", "chien");  // собака
-        words.put("maison_fr_A1", "maison");  // дом
-        words.put("table_fr_A1", "table");  // стол
-        words.put("stylo_fr_A1", "stylo");  // ручка
-        words.put("pomme_fr_A1", "pomme");  // яблоко
-        words.put("ballon_fr_A1", "ballon");  // мяч
-        words.put("soleil_fr_A1", "soleil");  // солнце
-        words.put("chaise_fr_A1", "chaise");  // стул
-        words.put("eau_fr_A1", "eau");  // вода
-        words.put("ami_fr_A1", "ami");  // друг
-        words.put("voiture_fr_A1", "voiture");  // машина
-        words.put("fruit_fr_A1", "fruit");  // фрукт
+        
+        words.put("bonjour_fr_A1", "bonjour");  
+        words.put("au revoir_fr_A1", "au revoir");  
+        words.put("chat_fr_A1", "chat");  
+        words.put("chien_fr_A1", "chien");  
+        words.put("maison_fr_A1", "maison"); 
+        words.put("table_fr_A1", "table");  
+        words.put("stylo_fr_A1", "stylo");  
+        words.put("pomme_fr_A1", "pomme");  
+        words.put("ballon_fr_A1", "ballon");  
+        words.put("soleil_fr_A1", "soleil");  
+        words.put("chaise_fr_A1", "chaise");  
+        words.put("eau_fr_A1", "eau");  
+        words.put("ami_fr_A1", "ami");  
+        words.put("voiture_fr_A1", "voiture");  
+        words.put("fruit_fr_A1", "fruit");  
 
-        // Уровень A2
-        words.put("école_fr_A2", "école");  // школа
-        words.put("livre_fr_A2", "livre");  // книга
-        words.put("ordinateur_fr_A2", "ordinateur");  // компьютер
-        words.put("famille_fr_A2", "famille");  // семья
-        words.put("bureau_fr_A2", "bureau");  // офис
-        words.put("jardin_fr_A2", "jardin");  // сад
-        words.put("vélo_fr_A2", "vélo");  // велосипед
-        words.put("repas_fr_A2", "repas");  // еда
-        words.put("fête_fr_A2", "fête");  // праздник
-        words.put("maison_fr_A2", "maison");  // дом
-        words.put("cadeau_fr_A2", "cadeau");  // подарок
-        words.put("chanson_fr_A2", "chanson");  // песня
-        words.put("travail_fr_A2", "travail");  // работа
-        words.put("écrire_fr_A2", "écrire");  // писать
-        words.put("voisin_fr_A2", "voisin");  // сосед
+        words.put("école_fr_A2", "école");  
+        words.put("livre_fr_A2", "livre");  
+        words.put("ordinateur_fr_A2", "ordinateur");  
+        words.put("famille_fr_A2", "famille");  
+        words.put("bureau_fr_A2", "bureau");  
+        words.put("jardin_fr_A2", "jardin");  
+        words.put("vélo_fr_A2", "vélo");  
+        words.put("repas_fr_A2", "repas");  
+        words.put("fête_fr_A2", "fête");  
+        words.put("maison_fr_A2", "maison");  
+        words.put("cadeau_fr_A2", "cadeau");  
+        words.put("chanson_fr_A2", "chanson");  
+        words.put("travail_fr_A2", "travail");  
+        words.put("écrire_fr_A2", "écrire");  
+        words.put("voisin_fr_A2", "voisin");  
 
-        // Уровень B1
-        words.put("environnement_fr_B1", "environnement");  // окружение
-        words.put("santé_fr_B1", "santé");  // здоровье
-        words.put("vacances_fr_B1", "vacances");  // отпуск
-        words.put("conversation_fr_B1", "conversation");  // разговор
-        words.put("langue_fr_B1", "langue");  // язык
-        words.put("exercice_fr_B1", "exercice");  // упражнение
-        words.put("présentation_fr_B1", "présentation");  // презентация
-        words.put("interview_fr_B1", "interview");  // интервью
-        words.put("gouvernement_fr_B1", "gouvernement");  // правительство
-        words.put("pollution_fr_B1", "pollution");  // загрязнение
-        words.put("discussions_fr_B1", "discussions");  // обсуждения
-        words.put("éducation_fr_B1", "éducation");  // образование
-        words.put("communauté_fr_B1", "communauté");  // сообщество
-        words.put("problème_fr_B1", "problème");  // проблема
-        words.put("emploi_fr_B1", "emploi");  // работа
+        words.put("environnement_fr_B1", "environnement");  
+        words.put("santé_fr_B1", "santé");  
+        words.put("vacances_fr_B1", "vacances");  
+        words.put("conversation_fr_B1", "conversation");  
+        words.put("langue_fr_B1", "langue");  
+        words.put("exercice_fr_B1", "exercice");  
+        words.put("présentation_fr_B1", "présentation"); 
+        words.put("interview_fr_B1", "interview");  
+        words.put("gouvernement_fr_B1", "gouvernement");  
+        words.put("pollution_fr_B1", "pollution"); 
+        words.put("discussions_fr_B1", "discussions");  
+        words.put("éducation_fr_B1", "éducation");  
+        words.put("communauté_fr_B1", "communauté");  
+        words.put("problème_fr_B1", "problème");  
+        words.put("emploi_fr_B1", "emploi");  
 
         // Уровень B2
-        words.put("conséquence_fr_B2", "conséquence");  // следствие
-        words.put("réflexion_fr_B2", "réflexion");  // размышление
-        words.put("opportunité_fr_B2", "opportunité");  // возможность
-        words.put("situation_fr_B2", "situation");  // ситуация
-        words.put("solution_fr_B2", "solution");  // решение
-        words.put("stratégie_fr_B2", "stratégie");  // стратегия
-        words.put("développement_fr_B2", "développement");  // развитие
-        words.put("programme_fr_B2", "programme");  // программа
-        words.put("réalisation_fr_B2", "réalisation");  // осуществление
-        words.put("évaluation_fr_B2", "évaluation");  // оценка
-        words.put("études_fr_B2", "études");  // исследования
-        words.put("approche_fr_B2", "approche");  // подход
-        words.put("recherche_fr_B2", "recherche");  // исследование
-        words.put("décision_fr_B2", "décision");  // решение
-        words.put("équipe_fr_B2", "équipe");  // команда
+        words.put("conséquence_fr_B2", "conséquence");  
+        words.put("réflexion_fr_B2", "réflexion");  
+        words.put("opportunité_fr_B2", "opportunité");  
+        words.put("situation_fr_B2", "situation");  
+        words.put("solution_fr_B2", "solution");  
+        words.put("stratégie_fr_B2", "stratégie");  
+        words.put("développement_fr_B2", "développement");  
+        words.put("programme_fr_B2", "programme"); 
+        words.put("réalisation_fr_B2", "réalisation");  
+        words.put("évaluation_fr_B2", "évaluation");  
+        words.put("études_fr_B2", "études");  
+        words.put("approche_fr_B2", "approche");  
+        words.put("recherche_fr_B2", "recherche");  
+        words.put("décision_fr_B2", "décision");  
+        words.put("équipe_fr_B2", "équipe");  
 
         // Уровень C1
-        words.put("complication_fr_C1", "complication");  // усложнение
-        words.put("gestion_fr_C1", "gestion");  // управление
-        words.put("perspective_fr_C1", "perspective");  // перспектива
-        words.put("créativité_fr_C1", "créativité");  // креативность
-        words.put("flexibilité_fr_C1", "flexibilité");  // гибкость
-        words.put("contribution_fr_C1", "contribution");  // вклад
-        words.put("alternative_fr_C1", "alternative");  // альтернатива
-        words.put("évaluation_fr_C1", "évaluation");  // оценка
-        words.put("motivation_fr_C1", "motivation");  // мотивация
-        words.put("concentration_fr_C1", "concentration");  // концентрация
-        words.put("collaboration_fr_C1", "collaboration");  // сотрудничество
-        words.put("soutien_fr_C1", "soutien");  // поддержка
-        words.put("projet_fr_C1", "projet");  // проект
-        words.put("défi_fr_C1", "défi");  // вызов
-        words.put("avantage_fr_C1", "avantage");  // преимущество
+        words.put("complication_fr_C1", "complication");  
+        words.put("gestion_fr_C1", "gestion");  
+        words.put("perspective_fr_C1", "perspective");  
+        words.put("créativité_fr_C1", "créativité");  
+        words.put("flexibilité_fr_C1", "flexibilité");  
+        words.put("contribution_fr_C1", "contribution");  
+        words.put("alternative_fr_C1", "alternative");  
+        words.put("évaluation_fr_C1", "évaluation");  
+        words.put("motivation_fr_C1", "motivation");  
+        words.put("concentration_fr_C1", "concentration");  
+        words.put("collaboration_fr_C1", "collaboration");  
+        words.put("soutien_fr_C1", "soutien");  
+        words.put("projet_fr_C1", "projet");  
+        words.put("défi_fr_C1", "défi");  
+        words.put("avantage_fr_C1", "avantage");  
 
         // Уровень C2
-        words.put("sophistiqué_fr_C2", "sophistiqué");  // сложный
-        words.put("innovant_fr_C2", "innovant");  // инновационный
-        words.put("collaboration_fr_C2", "collaboration");  // сотрудничество
-        words.put("interprétation_fr_C2", "interprétation");  // интерпретация
-        words.put("analyse_fr_C2", "analyse");  // анализ
-        words.put("abstraction_fr_C2", "abstraction");  // абстракция
-        words.put("connaissance_fr_C2", "connaissance");  // знание
-        words.put("nuance_fr_C2", "nuance");  // нюанс
-        words.put("réflexion_fr_C2", "réflexion");  // размышление
-        words.put("dilemme_fr_C2", "dilemme");  // дилемма
-        words.put("paradoxe_fr_C2", "paradoxe");  // парадокс
-        words.put("hypothèse_fr_C2", "hypothèse");  // гипотеза
-        words.put("innovation_fr_C2", "innovation");  // инновация
-        words.put("recherche_fr_C2", "recherche");  // исследование
-        words.put("complexité_fr_C2", "complexité");  // сложность
+        words.put("sophistiqué_fr_C2", "sophistiqué");  
+        words.put("innovant_fr_C2", "innovant");  
+        words.put("collaboration_fr_C2", "collaboration");  
+        words.put("interprétation_fr_C2", "interprétation");  
+        words.put("analyse_fr_C2", "analyse");  
+        words.put("abstraction_fr_C2", "abstraction");  
+        words.put("connaissance_fr_C2", "connaissance");  
+        words.put("nuance_fr_C2", "nuance");  
+        words.put("réflexion_fr_C2", "réflexion");  
+        words.put("dilemme_fr_C2", "dilemme");  
+        words.put("paradoxe_fr_C2", "paradoxe");  
+        words.put("hypothèse_fr_C2", "hypothèse");  
+        words.put("innovation_fr_C2", "innovation");  
+        words.put("recherche_fr_C2", "recherche");  
+        words.put("complexité_fr_C2", "complexité");  
     }
 
-    // Метод для перевода слов на русский
     public List<String> getTranslationToRussian(String word, String sourceLanguageCode) {
         String url = "https://translate.api.cloud.yandex.net/translate/v2/translate";
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "API-key " + apiKey);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Убедитесь, что переданный код языка имеет правильный формат (например, "en", "de")
         sourceLanguageCode = sourceLanguageCode.substring(0, 2).toLowerCase();
 
         JSONObject requestBody = new JSONObject();
         requestBody.put("texts", new JSONArray().put(word));
         requestBody.put("folderId", folderId);
-        requestBody.put("targetLanguageCode", sourceLanguageCode); // Переводим на русский
-        requestBody.put("sourceLanguageCode", "ru"); // Исходный язык передается от пользователя
+        requestBody.put("targetLanguageCode", sourceLanguageCode); 
+        requestBody.put("sourceLanguageCode", "ru"); 
 
 
-        // Логируем заголовки и тело запроса для отладки
         System.out.println("Заголовки: " + headers);
         System.out.println("Тело запроса: " + requestBody.toString());
 
@@ -365,7 +354,6 @@ public class TranslationService {
         try {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 
-            // Логируем ответ
             System.out.println("Ответ от API: " + response.getStatusCode() + " - " + response.getBody());
 
             if (response.getStatusCode() == HttpStatus.OK) {
@@ -378,12 +366,10 @@ public class TranslationService {
                 }
                 return translationsList;
             } else {
-                // Логируем код ошибки
                 System.out.println("Ошибка при запросе перевода: " + response.getStatusCode());
                 return new ArrayList<>();
             }
         } catch (Exception e) {
-            // Логируем исключение
             System.out.println("Произошла ошибка при обращении к API перевода: " + e.getMessage());
             e.printStackTrace();
             return new ArrayList<>();
@@ -394,23 +380,19 @@ public class TranslationService {
     public List<String> getWordsForLevel(String language, String level) {
         if (language == null || level == null) {
             System.out.println("Ошибка: язык или уровень пусты");
-            return new ArrayList<>();  // Возвращаем пустой список, если есть ошибка
+            return new ArrayList<>();  
         }
 
-        // Получаем код языка, например "en", "de"
         String languageCode = language.substring(0, 2).toLowerCase();
-        // Формируем префикс, например "en_A1"
         String keyPrefix = languageCode + "_" + level.toUpperCase();
 
         System.out.println("Ищем слова с префиксом: " + keyPrefix);
 
-        // Фильтруем слова, используя префикс
         List<String> filteredWords = words.entrySet().stream()
-                .filter(entry -> entry.getKey().contains(keyPrefix))  // Используем contains вместо startsWith
-                .map(Map.Entry::getValue)  // Извлекаем значение (слово)
+                .filter(entry -> entry.getKey().contains(keyPrefix))  
+                .map(Map.Entry::getValue)  
                 .collect(Collectors.toList());
 
-        // Логирование результатов фильтрации
         if (filteredWords.isEmpty()) {
             System.out.println("Не найдено слов с префиксом: " + keyPrefix);
         } else {
@@ -434,27 +416,22 @@ public class TranslationService {
     }
 
 
-    // Метод для перевода слова с одного языка на другой через API
     public String translate(String input, String sourceLanguageCode, String targetLanguageCode) {
         String apiUrl = "https://translate.api.cloud.yandex.net/translate/v2/translate";
         try {
-            // Создаем тело запроса
             JSONObject requestBody = new JSONObject();
             requestBody.put("folderId", folderId);
             requestBody.put("texts", new JSONArray().put(input));
             requestBody.put("targetLanguageCode", targetLanguageCode);
             requestBody.put("sourceLanguageCode", sourceLanguageCode);
 
-            // Устанавливаем заголовки для запроса
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("Authorization", "Api-Key " + apiKey);
 
-            // Отправляем запрос
             HttpEntity<String> request = new HttpEntity<>(requestBody.toString(), headers);
             ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, request, String.class);
 
-            // Обрабатываем ответ
             if (response.getStatusCode() == HttpStatus.OK) {
                 JSONObject responseBody = new JSONObject(response.getBody());
                 JSONArray translations = responseBody.getJSONArray("translations");
@@ -472,15 +449,13 @@ public class TranslationService {
         }
     }
 
-    // Метод для проверки правильности ответа
     public boolean checkAnswer(String word, String userTranslation, String userLanguageCode) {
-        // Проверяем перевод слова с английского на язык пользователя
         String correctTranslation = translate(word, "en", userLanguageCode);
         return correctTranslation.equalsIgnoreCase(userTranslation);
     }
     public String getTranslation(String word, String sourceLanguageCode) {
         List<String> translations = getTranslationToRussian(word, sourceLanguageCode);
-        return translations.isEmpty() ? null : translations.get(0); // Возвращаем первый перевод, если он есть
+        return translations.isEmpty() ? null : translations.get(0); 
     }
 
 
