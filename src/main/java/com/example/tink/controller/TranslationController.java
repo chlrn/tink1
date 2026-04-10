@@ -25,24 +25,21 @@ public class TranslationController {
     @PostMapping
     public ResponseEntity<String> translate(
             @RequestBody TranslationRequest requestBody,
-            @RequestParam("sourceLanguage") String sourceLanguage,  // Добавляем параметр для исходного языка
+            @RequestParam("sourceLanguage") String sourceLanguage,  
             HttpServletRequest request) {
 
-        // Проверка на наличие текста для перевода
         if (requestBody.getTexts() == null || requestBody.getTexts().isEmpty()) {
             return ResponseEntity.badRequest().body("Текст для перевода отсутствует.");
         }
 
         String textToTranslate = requestBody.getTexts().get(0);
 
-        // Получение перевода на русский, передаем исходный язык и текст
         List<String> translatedText = translationService.getTranslationToRussian(textToTranslate, sourceLanguage);
 
         if (translatedText.isEmpty()) {
             return ResponseEntity.internalServerError().body("Ошибка перевода.");
         }
 
-        // Сохранение информации о переводе
         TranslationEntity translationEntity = new TranslationEntity();
         translationEntity.setIpAddress(request.getRemoteAddr());
         translationEntity.setInputText(textToTranslate);
@@ -50,7 +47,6 @@ public class TranslationController {
         translationEntity.setTimestamp(LocalDateTime.now());
         translationService.saveTranslationRequest(translationEntity);
 
-        // Ответ с переводом
         return ResponseEntity.ok(String.join(", ", translatedText));
     }
 }
