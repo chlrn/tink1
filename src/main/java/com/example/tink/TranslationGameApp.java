@@ -132,24 +132,23 @@ public class TranslationGameApp {
     }
 
     private void showNextWord(Label wordLabel, VBox optionsBox) {
-        if (currentWordIndex >= 15) { // Если достигнут лимит 15 слов
+        if (currentWordIndex >= 15) { 
             finishGame(wordLabel);
             return;
         }
 
         String word = wordsList.get(currentWordIndex);
         String sourceLanguageCode = getLanguageCode(selectedLanguage);
-        String targetLanguageCode = "ru"; // Переводим всегда на русский
+        String targetLanguageCode = "ru"; 
 
-        // Получаем перевод на русский
         correctAnswer = translationService.translate(word, sourceLanguageCode, targetLanguageCode);
         wordLabel.setText("Переведите: " + word);
 
         List<String> options = generateOptions(correctAnswer);
         for (int i = 0; i < options.size(); i++) {
             StackPane optionPane = (StackPane) optionsBox.getChildren().get(i);
-            RadioButton optionButton = (RadioButton) optionPane.getChildren().get(1); // Второй элемент - RadioButton
-            optionButton.setText(options.get(i)); // Показываем перевод на русском
+            RadioButton optionButton = (RadioButton) optionPane.getChildren().get(1); 
+            optionButton.setText(options.get(i)); 
         }
     }
 
@@ -159,7 +158,6 @@ public class TranslationGameApp {
 
         while (options.size() < 3) {
             String randomWord = translationService.getRandomWord(selectedLanguage, selectedLevel);
-            // Получаем перевод случайного слова на русский
             String randomTranslation = translationService.translate(randomWord, getLanguageCode(selectedLanguage), "ru");
 
             if (!options.contains(randomTranslation)) {
@@ -183,7 +181,6 @@ public class TranslationGameApp {
 
         scoreLabel.setText("Score: " + score);
 
-        // Добавляем задержку 1 секунда для показа картинки
         PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
         pause.setOnFinished(event -> {
             feedbackImageView.setImage(null);
@@ -194,13 +191,11 @@ public class TranslationGameApp {
     }
 
     private void finishGame(Label wordLabel) {
-        double correctRatio = (double) score / 15; // Игровой процесс идет по 15 словам
+        double correctRatio = (double) score / 15; 
 
-        // Создаем новый экран для результата
         StackPane resultRoot = new StackPane();
 
 
-        // Показываем картинку в зависимости от результата
         String finalImagePath;
         if (score == 15) {
             finalImagePath = "/images/perfect.png";
@@ -213,7 +208,6 @@ public class TranslationGameApp {
         feedbackImageView.setImage(new Image(getClass().getResource(finalImagePath).toExternalForm()));
         resultRoot.getChildren().add(feedbackImageView);
 
-        // Добавляем текст с количеством очков на фоне
         Label resultLabel = new Label("Your score: " + score + "/15");
         resultLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: gray;");
         resultRoot.getChildren().add(resultLabel);
@@ -221,7 +215,6 @@ public class TranslationGameApp {
         StackPane.setAlignment(feedbackImageView, Pos.CENTER);
         StackPane.setAlignment(resultLabel, Pos.TOP_CENTER);
 
-        // Переход на экран с результатами
         Scene resultScene = new Scene(resultRoot, 600, 600);
         Stage resultStage = new Stage();
         resultStage.setScene(resultScene);
